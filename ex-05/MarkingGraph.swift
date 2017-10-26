@@ -10,11 +10,48 @@ public class MarkingGraph {
         self.successors = successors
     }
 
+
+}
+func countNodes(markingGraph: MarkingGraph) -> Int{
+ var seen    = [markingGraph]
+ var toVisit = [markingGraph]
+
+ while let current = toVisit.popLast(){
+   for (_, successor) in current.successors{
+       if !seen.countains(where: { $0 === successor }) {
+         seen.append(successor)
+         toVisit.append(successor)
+       }
+     }
+ }
+func countNodes(markingGraph: MarkingGraph, seen: inout[markingGraph]) -> Int{
+
+  seen.append(markingGraph)
+
+    for (_, successor) in markingGraph.successors{
+        if !seen.countains(where: { $0 === successor }) {
+          seen.append(successor)
+          _ = countNodes(markingGraph: successor, seen: &seen)
+        }
+      }
+  }
+ return seen.count
+ }
+
+
+
+return seen.count
 }
 
 // Ex. 1: Mutual exclusion
 do {
     // Write your code here ...
+    let m0 = MarkingGraph(marking: ["p0": 1, "p1": 0, "p2": 1, "p3": 0, "p4": 1])
+    let m1 = MarkingGraph(marking: ["p0": 0, "p1": 1, "p2": 0, "p3": 0, "p4": 1])
+    let m2 = MarkingGraph(marking: ["p0": 1, "p1": 0, "p2": 0, "p3": 1, "p4": 0])
+    m0.successors = ["t1": m2, "t3": m2]
+    m1.successors = ["t0": m0]
+    m2.successors = ["t2": m1]
 }
 
 // Ex. 2: PetriNet 1
