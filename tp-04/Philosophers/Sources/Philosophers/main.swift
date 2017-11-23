@@ -61,15 +61,20 @@ do{
   let philosophers = lockablePhilosophers(n: 5)
   let graph = philosophers.markingGraph(from: philosophers.initialMarking!)
   print("Question 2. Il y a \(graph!.count) marquages possibles dans le modèle bloquable à 5 philosophes.")
-  }
 
-do{
-  print("Question 3. ")
-  let philosophers = lockablePhilosophers(n: 5)
-  let graph = philosophers.markingGraph(from: philosophers.initialMarking!)
-  for g in graph!{
-    print("\(g.marking)")
-   } 
-  }
 
-}
+lock :  for node in graph! {
+      var found = true
+      for(_, e) in node.successors{
+        if e.count != 0 {
+          found = false
+        }
+      }
+        if found {
+          print("Question 3. Le réseau est bloqué à \(node.marking)")
+          break lock
+        }
+     }
+
+   }
+  }
