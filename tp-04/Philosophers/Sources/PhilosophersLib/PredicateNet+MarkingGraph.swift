@@ -3,7 +3,6 @@ extension PredicateNet {
     /// Returns the marking graph of a bounded predicate net.
     public func markingGraph(from marking: MarkingType) -> PredicateMarkingNode<T>? {
         // Write your code here ...
-
         // Note that I created the two static methods `equals(_:_:)` and `greater(_:_:)` to help
         // you compare predicate markings. You can use them as the following:
         //
@@ -13,8 +12,34 @@ extension PredicateNet {
         // You may use these methods to check if you've already visited a marking, or if the model
         // is unbounded.
 
-        return nil
-    }
+
+    let initial = PredicateMarkingNode<T>(marking: marking)  // On initialise les variables
+    var toVisit: [PredicateMarkingNode<T>] = [initial]
+    while(!toVisit.isEmpty){                                 // Tant que la liste de noeud à visiter n'est pas vide:
+        let cur = toVisit.popLast()!                         // On récupère l'élément
+        for trans in transitions {                           // On crée une boucle  pour les transitions
+          cur.successors[trans] = [:]                        // On initialise les successeurs
+          let binding: [PredicateTransition<T>.Binding] = trans.fireableBingings(from: cur.marking)   // On initialise les differents binding pour la transition et pour le marquage actuel
+          for bind in binding{                               // On parcourt les bindings
+             let newMark = PredicateMarkingNode(marking: trans.fire(from: cur.marking, with:bind)!)    // On lance la transition avec le binding et le marquage courant
+             for i in initial{                              // Itère sur les éléments déjà existant pour éviter les boucles infinies (ex: unbounded graphs)
+                if (PredicateNet.greater(newMark.marking, i.marking)){    // Si le nouveau marquage est plus grand qu'un marquage
+                  return nil                                              // On retourne alors la valeur nil
+                    }
+                }
+                if let knownMark = initial.first(where:{PredicateNet.equals($0.marking, newMark.marking)}){  // Si le marquage a déjà été visité
+                   cur.successors[trans]![bind] = knownMark                                             // On l'ajoute alors au successeurs
+                }
+                else if(!toVisit.contains(where: { PredicateNet.equals($0.marking, newMark.marking) })) {
+                    toVisit.append(newMark)                    // Sinon on l'ajoute à la liste des noeuds à visiter
+                    cur.successors[trans]![bind] = newMark     // Et on l'ajoute aussi au successeurs
+
+                }
+              }
+            }
+        }
+        return initial
+}
 
     // MARK: Internals
 
@@ -23,7 +48,10 @@ extension PredicateNet {
         for (place, tokens) in lhs {
             guard tokens.count == rhs[place]!.count else { return false }
             for t in tokens {
-                guard rhs[place]!.contains(t) else { return false }
+                guard tokens.filter({ $0 == t }).count == rhs[place]!.filter({ $0 == t }).count
+                    else {
+                        return false
+                }
             }
         }
         return true
@@ -37,7 +65,10 @@ extension PredicateNet {
             guard tokens.count >= rhs[place]!.count else { return false }
             hasGreater = hasGreater || (tokens.count > rhs[place]!.count)
             for t in rhs[place]! {
-                guard tokens.contains(t) else { return false }
+                guard tokens.filter({ $0 == t }).count >= rhs[place]!.filter({ $0 == t }).count
+                    else {
+                        return false
+                }
             }
         }
         return hasGreater
