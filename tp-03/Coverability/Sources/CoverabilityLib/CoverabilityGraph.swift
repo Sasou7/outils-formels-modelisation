@@ -14,6 +14,7 @@ public class CoverabilityGraph {
 
     /// The number of nodes in the graph.
     public var count: Int {
+<<<<<<< HEAD
         var seen: [CoverabilityGraph] = []
         var toCheck = [self]
 
@@ -21,6 +22,15 @@ public class CoverabilityGraph {
             seen.append(node)
             for (_, successor) in node.successors {
                 if !seen.contains(where: { $0 === successor }) {
+=======
+        var seen    = [self]
+        var toCheck = [self]
+
+        while let node = toCheck.popLast() {
+            for (_, successor) in node.successors {
+                if !seen.contains(where: { $0 === successor }) {
+                    seen.append(successor)
+>>>>>>> 2c3313f512f5b80773522eeb89bc8e8cbca58ef8
                     toCheck.append(successor)
                 }
             }
@@ -34,7 +44,11 @@ public class CoverabilityGraph {
 extension CoverabilityGraph: Sequence {
 
     public func makeIterator() -> AnyIterator<CoverabilityGraph> {
+<<<<<<< HEAD
         var seen: [CoverabilityGraph] = []
+=======
+        var seen    = [self]
+>>>>>>> 2c3313f512f5b80773522eeb89bc8e8cbca58ef8
         var toCheck = [self]
 
         return AnyIterator {

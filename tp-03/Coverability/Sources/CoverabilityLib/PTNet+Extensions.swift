@@ -1,6 +1,7 @@
 import PetriKit
 
 public extension PTNet {
+<<<<<<< HEAD
     // Permet de changer un marquage pour le graphe de couverture en un marquage tirable
     public func convToPT(with marking : CoverabilityMarking, and p : [PTPlace]) -> PTMarking{
       var m : PTMarking = [:]
@@ -69,6 +70,10 @@ public extension PTNet {
     }
 
     public func coverabilityGraph(from marking0: CoverabilityMarking) -> CoverabilityGraph? {
+=======
+
+    public func coverabilityGraph(from marking: CoverabilityMarking) -> CoverabilityGraph {
+>>>>>>> 2c3313f512f5b80773522eeb89bc8e8cbca58ef8
         // Write here the implementation of the coverability graph generation.
 
         // Note that CoverabilityMarking implements both `==` and `>` operators, meaning that you
@@ -79,6 +84,7 @@ public extension PTNet {
         // print debug information you'll write in that function will NOT be taken into account to
         // evaluate your homework.
 
+<<<<<<< HEAD
 
         // Transformation en array des set des transitions et places
         var transitionsC = Array (transitions) // sort les valeurs de l'array
@@ -128,4 +134,9 @@ public extension PTNet {
         }
         return returnedGraph
       }
+=======
+        return CoverabilityGraph(marking: marking)
+    }
+
+>>>>>>> 2c3313f512f5b80773522eeb89bc8e8cbca58ef8
 }

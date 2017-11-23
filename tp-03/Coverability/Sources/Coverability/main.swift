@@ -13,6 +13,7 @@ import CoverabilityLib
 // You **are** encouraged to write tests of your own!
 // You may write as many tests as you want here, or even better in `CoverabilityLibTests.swift`.
 // Observe how the two existing tests are implemented to write your own.
+<<<<<<< HEAD
 
 
 print("Test with createBoundedModel")
@@ -71,3 +72,5 @@ else{
 }
 
 print("The End.\n")
+=======
+>>>>>>> 2c3313f512f5b80773522eeb89bc8e8cbca58ef8
