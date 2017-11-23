@@ -48,5 +48,28 @@ do {
     // let philosophers = lockablePhilosophers(n: 3)
     for m in philosophers.simulation(from: philosophers.initialMarking!).prefix(10) {
         print(m)
+
     }
+
+do{
+  let philosophers = lockFreePhilosophers(n: 5)
+  let graph = philosophers.markingGraph(from: philosophers.initialMarking!)
+  print("Question 1. Il existe \(graph!.count) marquages possibles dans le modèle non bloquable à 5 philosophes. ")
+  }
+
+do{
+  let philosophers = lockablePhilosophers(n: 5)
+  let graph = philosophers.markingGraph(from: philosophers.initialMarking!)
+  print("Question 2. Il y a \(graph!.count) marquages possibles dans le modèle bloquable à 5 philosophes.")
+  }
+
+do{
+  print("Question 3. ")
+  let philosophers = lockablePhilosophers(n: 5)
+  let graph = philosophers.markingGraph(from: philosophers.initialMarking!)
+  for g in graph!{
+    print("\(g.marking)")
+   } 
+  }
+
 }
