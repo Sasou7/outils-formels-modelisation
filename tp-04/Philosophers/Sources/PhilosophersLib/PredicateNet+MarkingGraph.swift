@@ -22,17 +22,17 @@ extension PredicateNet {
           let binding: [PredicateTransition<T>.Binding] = trans.fireableBingings(from: cur.marking)   // On initialise les differents binding pour la transition et pour le marquage actuel
           for bind in binding{                               // On parcourt les bindings
              let newMark = PredicateMarkingNode(marking: trans.fire(from: cur.marking, with:bind)!)    // On lance la transition avec le binding et le marquage courant
-             for i in initial{                              // Itère sur les éléments déjà existant pour éviter les boucles infinies (ex: unbounded graphs)
+             for i in initial{                                            // Itère sur les éléments déjà existant pour éviter les boucles infinies (ex: unbounded graphs)
                 if (PredicateNet.greater(newMark.marking, i.marking)){    // Si le nouveau marquage est plus grand qu'un marquage
                   return nil                                              // On retourne alors la valeur nil
                     }
                 }
                 if let knownMark = initial.first(where:{PredicateNet.equals($0.marking, newMark.marking)}){  // Si le marquage a déjà été visité
-                   cur.successors[trans]![bind] = knownMark                                             // On l'ajoute alors au successeurs
+                   cur.successors[trans]![bind] = knownMark                                                  // On l'ajoute alors au successeurs
                 }
                 else if(!toVisit.contains(where: { PredicateNet.equals($0.marking, newMark.marking) })) {
                     toVisit.append(newMark)                    // Sinon on l'ajoute à la liste des noeuds à visiter
-                    cur.successors[trans]![bind] = newMark     // Et on l'ajoute aussi au successeurs
+                    cur.successors[trans]![bind] = newMark     // On l'ajoute aussi au successeurs
 
                 }
               }
