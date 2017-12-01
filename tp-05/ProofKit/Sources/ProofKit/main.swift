@@ -2,6 +2,7 @@ import ProofKitLib
 
 let a: Formula = "a"
 let b: Formula = "b"
+<<<<<<< HEAD
 let c: Formula = "c"
 
 let f = (!a || b && c) && a
@@ -24,6 +25,11 @@ print("dnf        : \(b && c && a)")
 
 
 
+=======
+let f = a && b
+
+print(f)
+>>>>>>> 118f84c7f3845dfa0b5668b721dfabbc25a54375
 
 let booleanEvaluation = f.eval { (proposition) -> Bool in
     switch proposition {
