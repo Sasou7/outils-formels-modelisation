@@ -186,21 +186,12 @@ extension Formula: CustomStringConvertible {
 
 }
 
-<<<<<<< HEAD
-struct Judgment {
-
-    let hypotheses : Set<Formula>
-    let conclusions: Set<Formula>
-
-    var isProvable: Bool {
-=======
 public struct Judgment {
 
     public let hypotheses : Set<Formula>
     public let conclusions: Set<Formula>
 
     public var isProvable: Bool {
->>>>>>> 118f84c7f3845dfa0b5668b721dfabbc25a54375
         let Γ = self.hypotheses
         let Δ = self.conclusions
 
@@ -271,11 +262,7 @@ public struct Judgment {
 
 extension Judgment: CustomStringConvertible {
 
-<<<<<<< HEAD
-    var description: String {
-=======
     public var description: String {
->>>>>>> 118f84c7f3845dfa0b5668b721dfabbc25a54375
         let Γ = self.hypotheses .map({ String(describing: $0) }).joined(separator: ",")
         let Δ = self.conclusions.map({ String(describing: $0) }).joined(separator: ",")
         return "\(Γ) ⊢ \(Δ)"
@@ -285,19 +272,11 @@ extension Judgment: CustomStringConvertible {
 
 extension Set where Element == Formula {
 
-<<<<<<< HEAD
-    static func +(set: Set, formula: Formula) -> Set {
-        return set.union([formula])
-    }
-
-    static func -(set: Set, formula: Formula) -> Set {
-=======
     public static func +(set: Set, formula: Formula) -> Set {
         return set.union([formula])
     }
 
     public static func -(set: Set, formula: Formula) -> Set {
->>>>>>> 118f84c7f3845dfa0b5668b721dfabbc25a54375
         return set.filter({ $0 != formula })
     }
 
@@ -305,11 +284,7 @@ extension Set where Element == Formula {
 
 extension Formula {
 
-<<<<<<< HEAD
-    static func |-(hypotheses: Formula, conclusions: Formula) -> Judgment {
-=======
     public static func |-(hypotheses: Formula, conclusions: Formula) -> Judgment {
->>>>>>> 118f84c7f3845dfa0b5668b721dfabbc25a54375
         return Judgment(hypotheses: [hypotheses], conclusions: [conclusions])
     }
 

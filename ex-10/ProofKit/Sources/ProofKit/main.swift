@@ -4,7 +4,7 @@ let a: Formula = "a"
 let b: Formula = "b"
 let c: Formula = "c"
 let d: Formula = "d"
-let f = a => b , a => c , b => d , c => d |- a => d
+let f = a => b&&a => c&&b => d&&c => d |- a => d
 
 print(f.isProvable)
 /*
