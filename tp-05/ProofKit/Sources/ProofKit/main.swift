@@ -2,34 +2,41 @@ import ProofKitLib
 
 let a: Formula = "a"
 let b: Formula = "b"
-<<<<<<< HEAD
 let c: Formula = "c"
+let d: Formula = "d"
 
 let f = (!a || b && c) && a
-print(f.nnf)
+print("Test n°1:")
+print("f  : \(f)")
+print("nnf: \(f.nnf)")
+print("cnf: \(f.cnf)")
+print("dnf: \(f.dnf)")
 
-let ex1 = !(a && (b || c))
-print("nnf ex1 -> : \(ex1.nnf)")
-print("cnf        : \((!a || !b) && (!a || !c))")
-print("dnf        : \((!a || !b)  || (!a || !c))")
-print("\nex2")
-let ex2 = (a => b) || !(a && c)
-print("nnf ex2 -> : \(ex2.nnf)")
-print("cnf        : \(!a || b || !c) ")
-print("dnf        : \(!a || b || !c)")
-print("\nex3")
-let ex3 = (!a || b && c) && a
-print("nnf ex3 -> : \(ex3.nnf)")
-print("cnf        : \(b && c && a)")
-print("dnf        : \(b && c && a)")
+//On va utiliser les exemples de la série 9 exercice 2
+//J'écris à coté les réponses vu pendant la séance pour vérifier mes resultats
+let g = !(a && (b || c))
+print("\nTest n°2")
+print("g  : \(g)")
+print("nnf: \(g.nnf)")
+print("cnf: \(g.cnf)")   //((!a || !b) && (!a || !c))
+print("dnf: \(g.dnf)")  //((!a || !b)  || (!a || !c))
+
+let h = (a => b) || !(a && c)
+print("\nTest n°3")
+print("h : \(h)")
+print("nnf: \(h.nnf)")
+print("cnf: \(h.cnf) ")         //(!a || b || !c)
+print("dnf: \(h.dnf)")          //(!a || b || !c)
+
+let i = (!a || b && c) && a
+print("\nTest n°4")
+print("i  : \(i)")
+print("nnf: \(i.nnf)")
+print("cnf: \(i.cnf)")      //(b && c && a)
+print("dnf: \(i.dnf)")      //(b && c && a)
 
 
 
-=======
-let f = a && b
-
-print(f)
->>>>>>> 118f84c7f3845dfa0b5668b721dfabbc25a54375
 
 let booleanEvaluation = f.eval { (proposition) -> Bool in
     switch proposition {

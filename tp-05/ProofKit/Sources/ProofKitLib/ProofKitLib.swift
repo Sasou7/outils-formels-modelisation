@@ -73,13 +73,66 @@ public enum Formula {
     /// The disjunctive normal form of the formula.
     public var dnf: Formula {
         // Write your code here ...
-        return self
+
+        switch self.nnf{
+
+        case .proposition(_):
+          return self.nnf
+        case .negation(_):
+          return self.nnf
+    //S'il y a disjonction, alors on retourne la dnf de la formule
+  case .disjunction(let a, let b):
+          return a.dnf || b.dnf
+    //S'il y a conjonction:
+  case .conjunction(let a, let b):
+          switch a.dnf{
+          case .disjunction(let c, let d):
+            return (b && d).dnf || (b && c).dnf
+          default: break
+          }
+        switch b.dnf{
+        case .disjunction(let c, let d):
+            return (c && a).dnf || (d && a).dnf
+          default: break
+          }
+          return self.cnf
+        //S'il n'y a pas d'implication on retourne la nnf
+        case .implication(_,_):
+          return self.nnf
+        }
+    return self
     }
 
     /// The conjunctive normal form of the formula.
     public var cnf: Formula {
         // Write your code here ...
-        return self
+        switch self.nnf {
+       case .proposition(_):
+           return self.nnf
+       case .negation(_):
+           return self.nnf
+      //S'il y a conjonction, on retourne la cnf
+       case .conjunction(let a, let b):
+           return a.cnf && b.cnf
+      //S'il y a disjonction, on retourne la cnf
+       case .disjunction(let a, let b):
+           switch a.cnf {
+           case .conjunction(let c, let d):
+               return (b || c).cnf && (b || d).cnf
+           default: break
+           }
+           switch b.cnf {
+           case .conjunction(let c, let d):
+               return (a || c).cnf && (a||d).cnf
+           default: break
+           }
+           return self.dnf
+      //S'il n'y a pas d'implication, on retourne la nnf
+       case .implication(_,_):
+           return self.nnf
+
+       }
+    return self
     }
 
     /// The propositions the formula is based on.
